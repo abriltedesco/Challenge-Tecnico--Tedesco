@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [deshabilitado, setDeshabilitado] = useState(true)
+  const contadorRef = useRef(0)
 
-  const habilitarContador = () => {
-    const botonContador = document.querySelector('.botonContador');
-    botonContador.disabled = false;
+  const habilitarContador = () => {   
+    setDeshabilitado(false); 
     setTimeout(() => {
-      botonContador.disabled = true;
-      alert(`¡Tiempo terminado! Has hecho ${count} clics.`);
+      setDeshabilitado(true);
+      alert(`¡Tiempo terminado! Has hecho ${contadorRef.current} clics.`);
     }, 5000);
   }
 
@@ -19,8 +20,10 @@ function App() {
   }
 
   const incrementar = () => {
-    setCount(count + 1);
+    setCount(valorAnterior => valorAnterior + 1)
+    contadorRef.current += 1;
   };
+
   const cuentaRegresiva = () => {
     setCount(0); 
     cambiarDialog("Preparados...");
@@ -39,7 +42,7 @@ function App() {
         </div>
         <dialog id="popUpCuentaRegresiva"><p id="cuentaRegresivaTexto"></p></dialog>
         <button className="botonInicio" onClick={() => cuentaRegresiva()} > Iniciar </button>
-        <button className="botonContador" onClick={incrementar} disabled>
+        <button className="botonContador" onClick={incrementar} disabled={deshabilitado}>
          Clickea {count}
         </button>
       </section>
