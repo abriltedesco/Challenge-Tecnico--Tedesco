@@ -1,0 +1,255 @@
+/* ========================
+   JuegoContadorV2 — Estilos
+   ======================== */
+
+.juego-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+/* Header */
+.juego-v2__header {
+  text-align: center;
+}
+
+.juego-v2__header h1 {
+  font-size: 2rem;
+  margin: 0 0 8px;
+}
+
+.juego-v2__header h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Countdown overlay */
+.juego-v2__countdown {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+  animation: jv2-fadeIn 0.3s ease;
+}
+
+.juego-v2__countdown-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fff;
+  animation: jv2-popIn 0.4s ease;
+  text-align: center;
+  margin: 0;
+}
+
+@keyframes jv2-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes jv2-popIn {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Controls */
+.juego-v2__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.juego-v2__btn {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.juego-v2__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.juego-v2__btn--inicio {
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+}
+
+.juego-v2__btn--inicio:not(:disabled):hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.juego-v2__btn--inicio:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.juego-v2__btn--click {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #aa3bff, #7c3aed);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(170, 59, 255, 0.3);
+  user-select: none;
+}
+
+.juego-v2__btn--click:not(:disabled):hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 32px rgba(170, 59, 255, 0.45);
+}
+
+.juego-v2__btn--click:not(:disabled):active {
+  transform: scale(0.93);
+  box-shadow: 0 4px 12px rgba(170, 59, 255, 0.3);
+}
+
+/* Stats */
+.juego-v2__stats {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.juego-v2__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  min-width: 120px;
+}
+
+.juego-v2__stat--highlight {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.juego-v2__stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text);
+}
+
+.juego-v2__stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--mono);
+  color: var(--text-h);
+}
+
+/* Time bar */
+.juego-v2__timebar {
+  width: 100%;
+  max-width: 400px;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.juego-v2__timebar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 1s linear;
+}
+
+/* Result message */
+.juego-v2__result {
+  padding: 16px 28px;
+  border-radius: 12px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  text-align: center;
+  animation: jv2-slideUp 0.4s ease;
+}
+
+.juego-v2__result p {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 1.1rem;
+}
+
+.juego-v2__new-record {
+  font-size: 1.3rem;
+  margin-top: 8px !important;
+}
+
+@keyframes jv2-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .juego-v2 {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+
+  .juego-v2__header h1 {
+    font-size: 1.5rem;
+  }
+
+  .juego-v2__btn--click {
+    width: 160px;
+    height: 160px;
+    font-size: 1.1rem;
+  }
+
+  .juego-v2__stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .juego-v2__stat {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .juego-v2__countdown-text {
+    font-size: 3rem;
+  }
+}
