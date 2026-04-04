@@ -7,6 +7,7 @@
   --juego-v3-primary: #ff7a18;
   --juego-v3-secondary: #ffb347;
   --juego-v3-danger: #ec5b3b;
+  --juego-v3-purple: #7c3aed;
   width: min(720px, calc(100% - 32px));
   margin: auto;
   padding: 32px;
@@ -97,6 +98,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  align-items: stretch;
 }
 
 .juego-v3__button {
@@ -120,21 +122,68 @@
 .juego-v3__button--start {
   color: #fff;
   background: linear-gradient(135deg, #ff7a18 0%, #ff9d2e 100%);
-  box-shadow: 0 14px 32px rgba(255, 122, 24, 0.28);
+  box-shadow: 0 10px 0 #ca5f10, 0 20px 35px rgba(255, 122, 24, 0.28);
 }
 
-.juego-v3__button--click {
-  color: #fff;
-  background: linear-gradient(135deg, #ec5b3b 0%, #f58549 100%);
-  box-shadow: 0 14px 32px rgba(236, 91, 59, 0.24);
+.juego-v3__button--start:not(:disabled):active {
+  transform: translateY(7px);
+  box-shadow: 0 3px 0 #ca5f10, 0 8px 16px rgba(255, 122, 24, 0.24);
 }
 
 .juego-v3__button:not(:disabled):hover {
   transform: translateY(-2px) scale(1.01);
 }
 
-.juego-v3__button:not(:disabled):active {
-  transform: translateY(1px) scale(0.99);
+.juego-v3__click-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 184px;
+}
+
+.juego-v3__button--click {
+  width: 184px;
+  min-height: 184px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ff8f70 0%, #ec5b3b 48%, #c33c23 100%);
+  box-shadow:
+    inset 0 10px 18px rgba(255, 255, 255, 0.22),
+    0 16px 0 #922d1c,
+    0 26px 36px rgba(124, 58, 237, 0.22);
+}
+
+.juego-v3__button--click-live {
+  animation: juego-v3-buttonGlow 560ms ease-in-out infinite alternate;
+}
+
+.juego-v3__button--click:not(:disabled):hover {
+  transform: translateY(-1px) scale(1.015);
+}
+
+.juego-v3__button--click:not(:disabled):active {
+  transform: translateY(12px) scale(0.96);
+  box-shadow:
+    inset 0 6px 10px rgba(255, 255, 255, 0.14),
+    0 4px 0 #922d1c,
+    0 10px 18px rgba(124, 58, 237, 0.18);
+}
+
+.juego-v3__floating-score {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  color: #fff3c1;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.3);
+  animation: juego-v3-floatingScore 700ms ease-out forwards;
+  z-index: 2;
 }
 
 .juego-v3__stats {
@@ -154,6 +203,11 @@
   background: linear-gradient(135deg, rgba(255, 122, 24, 0.14), rgba(255, 179, 71, 0.18));
 }
 
+.juego-v3__stat-card--urgent {
+  border-color: rgba(236, 91, 59, 0.42);
+  background: linear-gradient(135deg, rgba(236, 91, 59, 0.12), rgba(255, 255, 255, 0.84));
+}
+
 .juego-v3__stat-label {
   display: block;
   margin-bottom: 10px;
@@ -166,6 +220,11 @@
 .juego-v3__stat-value {
   color: var(--juego-v3-ink);
   font-size: clamp(1.6rem, 3vw, 2.3rem);
+}
+
+.juego-v3__stat-value--urgent {
+  color: #d62828;
+  animation: juego-v3-alertBlink 420ms steps(2, end) infinite;
 }
 
 .juego-v3__timeline {
@@ -181,6 +240,11 @@
   border-radius: inherit;
   background: linear-gradient(90deg, #ffb347 0%, #ff7a18 55%, #ec5b3b 100%);
   transition: width 1s linear;
+}
+
+.juego-v3__timeline-fill--urgent {
+  background: linear-gradient(90deg, #ff9d2e 0%, #ff5a36 45%, #d62828 100%);
+  animation: juego-v3-tensionPulse 420ms ease-in-out infinite;
 }
 
 .juego-v3__status {
@@ -212,9 +276,33 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(35, 20, 10, 0.48);
+  background: rgba(35, 20, 10, 0.58);
   pointer-events: none;
-  z-index: 20;
+  z-index: 30;
+}
+
+.juego-v3__countdown-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 183, 71, 0.12), transparent 36%);
+}
+
+.juego-v3__countdown-ring {
+  position: absolute;
+  width: min(44vw, 360px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  border: 5px solid rgba(255, 255, 255, 0.12);
+  border-top-color: rgba(255, 255, 255, 0.78);
+  animation: juego-v3-ringSpin 1200ms linear infinite;
+}
+
+.juego-v3__countdown-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
 }
 
 .juego-v3__countdown-text {
@@ -225,20 +313,97 @@
   color: #fff;
   font-size: clamp(2.2rem, 7vw, 5rem);
   font-weight: 800;
-  letter-spacing: 0.03em;
-  box-shadow: 0 20px 60px rgba(82, 34, 10, 0.32);
-  animation: juego-v3-pop 200ms ease-out;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 20px 60px rgba(82, 34, 10, 0.38);
+  animation: juego-v3-pop 240ms ease-out;
+}
+
+.juego-v3__countdown-subtext {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.juego-v3__countdown--ready .juego-v3__countdown-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+}
+
+.juego-v3__countdown--set .juego-v3__countdown-text {
+  background: linear-gradient(135deg, #ffb347 0%, #ff7a18 100%);
+}
+
+.juego-v3__countdown--go .juego-v3__countdown-text {
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  transform: scale(1.08);
 }
 
 @keyframes juego-v3-pop {
   from {
     opacity: 0;
-    transform: scale(0.88);
+    transform: scale(0.68);
   }
 
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes juego-v3-ringSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes juego-v3-floatingScore {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 64px)) scale(1.28);
+  }
+}
+
+@keyframes juego-v3-buttonGlow {
+  from {
+    box-shadow:
+      inset 0 10px 18px rgba(255, 255, 255, 0.22),
+      0 16px 0 #922d1c,
+      0 26px 36px rgba(124, 58, 237, 0.22);
+  }
+
+  to {
+    box-shadow:
+      inset 0 10px 18px rgba(255, 255, 255, 0.28),
+      0 16px 0 #922d1c,
+      0 26px 42px rgba(124, 58, 237, 0.36),
+      0 0 26px rgba(255, 122, 24, 0.3);
+  }
+}
+
+@keyframes juego-v3-alertBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.24;
+  }
+}
+
+@keyframes juego-v3-tensionPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
   }
 }
 
@@ -255,5 +420,15 @@
   .juego-v3__controls,
   .juego-v3__stats {
     grid-template-columns: 1fr;
+  }
+
+  .juego-v3__click-zone {
+    min-height: 164px;
+  }
+
+  .juego-v3__button--click {
+    width: 164px;
+    min-height: 164px;
+    font-size: 1.2rem;
   }
 }
