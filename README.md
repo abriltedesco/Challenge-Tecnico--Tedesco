@@ -37,8 +37,8 @@ npm -v
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/juego-contador.git
-cd juego-contador
+git clone https://github.com/abriltedesco/Challenge-Tecnico--Tedesco
+cd Challenge-Tecnico--Tedesco
 ```
 
 2. Instalar dependencias:
