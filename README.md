@@ -1,57 +1,125 @@
+# JuegoContador 🕹️
 
-<div align="center">
-
-  # CHALLENGE TÉCNICO 🖥️
-  
-</div>
----
-
-##  Prácicas Profesionalizantes - 2026
-### Profesor: Lucas Saclier
-### Alumna: Abril Tedesco
+Desafío técnico para el puesto de Desarrollador Frontend React Junior. Juego simple en el que el usuario compite contra sí mismo intentando hacer la mayor cantidad de clics posibles en un botón durante 5 segundos.
 
 ---
 
-## Cómo correr la solución en un entorno local
+## Versiones
 
-### Requisitos previos
-- [Node.js](https://nodejs.org/) (v18 o superior)
-- npm (incluido con Node.js)
+El repositorio incluye tres versiones del mismo juego, cada una con un enfoque diferente:
 
-### Instrucciones
+| Versión | Archivo | Descripción |
+| :--- | :--- | :--- |
+| **V1** | `JuegoContador.jsx` | Resolución propia sin IA. Funcional y básica. |
+| **V2** | `JuegoContadorV2.jsx` | Generada con **Claude Opus 4.6**. Enfoque lúdico/arcade. |
+| **V3** | `JuegoContadorV3.jsx` | Generada con **GPT-5.4**. Enfoque de producto/dashboard. |
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd Challenge-Tecnico--Tedesco
-   ```
+Para cambiar qué versión se muestra, modificar el import en `src/App.jsx`.
 
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
+---
 
-3. **Ejecutar en modo desarrollo**
-   ```bash
-   npm run dev
-   ```
-   Se abrirá un servidor local (por defecto en `http://localhost:5173`). Abrí esa URL en tu navegador.
+## Requisitos previos
 
-4. **Build de producción** (opcional)
-   ```bash
-   npm run build
-   npm run preview
-   ```
+- [Node.js](https://nodejs.org/) v18 o superior
+- npm v9 o superior (incluido con Node.js)
+
+Verificar versiones instaladas:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## Instalación y ejecución local
+
+1. Clonar el repositorio:
+
+```bash
+git clone https://github.com/tu-usuario/juego-contador.git
+cd juego-contador
+```
+
+2. Instalar dependencias:
+
+```bash
+npm install
+```
+
+3. Iniciar el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+4. Abrir el navegador en la URL que indica la terminal (por defecto `http://localhost:5173`).
+
+---
+
+## Cómo cambiar la versión activa
+
+Editar `src/App.jsx` y modificar el import del componente:
+
+```jsx
+// Para ver la versión sin IA (V1):
+import JuegoContador from './sinIA/JuegoContadorV3.jsx'
+
+// Para ver la versión con Claude Opus 4.6 (V2):
+import JuegoContadorV2 from './Opus4.6/JuegoContadorV2.jsx'
+
+// Para ver la versión con GPT-5.4 (V3):
+import JuegoContadorV3 from  './Opus4.6/JuegoContadorV2.jsx'
+```
+
+---
+
+## Estructura del proyecto
+
+```
+src/
+├── GPT-5.4/
+  ├── JuegoContadorV3.jsx      # V3 — resolución con GPT-5.4
+  ├── JuegoContadorV3.css      # V3 — resolución con GPT-5.4
+├── Opus6.4/
+  ├── JuegoContadorV2.jsx     # V2 — resolución con Claude Opus 4.6  
+  ├── JuegoContadorV2.css     # V2 — resolución con Claude Opus 4.6  
+├── sinIA/
+  ├── JuegoContador.jsx     # V1 — resolución propia
+  ├── JuegoContador.css     # V1 — resolución propia
+├── App.jsx                 # Punto de entrada — cambiar import aquí
+└── main.jsx
+```
 
 ---
 
 ## Supuestos y consideraciones
 
-- **Versión V3**: Se creó un nuevo componente `JuegoContadorV3` sin sobreescribir el original (`JuegoContador`) ni la versión previa (`JuegoContadorV2`). El archivo `main.jsx` importa la versión V3.
-- **Cuenta regresiva**: Los mensajes "Preparados...", "Listos..." y "¡Ya!" se muestran como un overlay a pantalla completa con animación, mejorando la experiencia visual respecto al uso de `<dialog>` con manipulación directa del DOM.
-- **Sin `alert()`**: El resultado del juego se muestra directamente en la interfaz como un mensaje estilizado, evitando interrumpir la experiencia del usuario con ventanas modales del navegador.
-- **Gestión de estado con React**: Se eliminó toda manipulación directa del DOM (`document.getElementById`). Toda la lógica de UI se maneja a través de estados de React (`useState`) y una máquina de estados simple (`idle` → `countdown` → `playing` → `idle`).
-- **Limpieza de timers**: Se implementó limpieza de `setTimeout`/`setInterval` al desmontar el componente para evitar memory leaks.
-- **Componentización**: Se separaron sub-componentes funcionales (`CountdownOverlay`, `GameStats`, `ResultMessage`) para mejorar la legibilidad y mantenibilidad.
-- **Accesibilidad**: Se incluyeron atributos `role` y `aria-*` en elementos relevantes (countdown, barra de progreso, resultado).
-- **Responsive**: Los estilos se adaptan a pantallas pequeñas (< 480px).
+- **Inicio del conteo:** El botón de clic se habilita únicamente cuando la cuenta regresiva finaliza por completo (después del "Ya"), no al inicio del último mensaje. Esto asegura que no se pueda clickear ni un milisegundo antes del tiempo de juego.
+
+- **Persistencia del puntaje máximo:** El récord se guarda en memoria durante la sesión. Al recargar la página se reinicia a 0. No se utilizó `localStorage` ya que el enunciado no lo requería.
+
+- **Sin librerías de componentes externas:** Se decidió no usar MUI u otras librerías para mantener el código liviano y demostrar el manejo directo de CSS y React sin dependencias adicionales.
+
+- **Tres versiones en el mismo repositorio:** Se eligió esta estructura para facilitar la comparación directa entre enfoques. En un proyecto real, cada versión viviría en su propio branch o repositorio.
+
+- **Limpieza de timers:** Todas las versiones limpian correctamente sus `setTimeout` e `setInterval` al desmontar el componente para evitar memory leaks.
+
+---
+
+## Proceso de desarrollo
+
+Este proyecto fue desarrollado en tres etapas. Primero se resolvió el juego de forma manual sin asistencia de IA, lo que permitió identificar las diferencias conceptuales entre JavaScript vanilla y React — en particular, por qué la manipulación directa del DOM entra en conflicto con el ciclo de renderizado de React y cómo resolverlo correctamente con `useState`.
+
+Con esa base, se generaron dos versiones usando Claude Opus 4.6 y GPT-5.4 con el mismo prompt de partida, para comparar cómo cada modelo interpreta los mismos requisitos técnicos y de producto. Las diferencias más notorias aparecieron en la UI/UX: Opus adoptó una estética arcade y lúdica, mientras que GPT produjo una interfaz más cercana a un dashboard de producto.
+
+Finalmente, se iteró sobre ambas versiones con un segundo prompt enfocado en mejorar la experiencia de juego: efectos de presión física en el botón, números flotantes al hacer clic y tensión visual en los últimos segundos del temporizador.
+
+---
+
+## Documentación del proceso
+
+El análisis comparativo completo, incluyendo la comparativa entre enfoques (con IA y sin IA), la comparativa entre modelos (Opus vs. GPT) y los prompts utilizados, se encuentra en:
+
+- `AnalisisComparativo.md` — análisis técnico y de UX entre las tres versiones
+- `Prompts.md` — prompts utilizados con cada modelo y la intención detrás de cada uno
