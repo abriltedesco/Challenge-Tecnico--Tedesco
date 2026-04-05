@@ -1,6 +1,6 @@
 # JuegoContador 🕹️
 
-Desafío técnico para el puesto de Desarrollador Frontend React Junior. Juego simple en el que el usuario compite contra sí mismo intentando hacer la mayor cantidad de clics posibles en un botón durante 5 segundos.
+Juego simple en el que el usuario compite contra sí mismo intentando hacer la mayor cantidad de clics posibles en un botón durante 5 segundos.
 
 ---
 
@@ -14,7 +14,7 @@ El repositorio incluye tres versiones del mismo juego, cada una con un enfoque d
 | **V2** | `JuegoContadorV2.jsx` | Generada con **Claude Opus 4.6**. Enfoque lúdico/arcade. |
 | **V3** | `JuegoContadorV3.jsx` | Generada con **GPT-5.4**. Enfoque de producto/dashboard. |
 
-Para cambiar qué versión se muestra, modificar el import en `src/App.jsx`.
+Para cambiar qué versión se muestra, modificar el import en `src/main.jsx`.
 
 ---
 
@@ -59,7 +59,7 @@ npm run dev
 
 ## Cómo cambiar la versión activa
 
-Editar `src/App.jsx` y modificar el import del componente:
+Editar `src/main.jsx` y modificar el import del componente:
 
 ```jsx
 // Para ver la versión sin IA (V1):
@@ -87,7 +87,7 @@ src/
 ├── sinIA/
   ├── JuegoContador.jsx     # V1 — resolución propia
   ├── JuegoContador.css     # V1 — resolución propia
-├── main.jsx                 # Punto de entrada — cambiar import aquí
+├── main.jsx                # Punto de entrada — cambiar import aquí
 ```
 
 ---
