@@ -87,8 +87,7 @@ src/
 ├── sinIA/
   ├── JuegoContador.jsx     # V1 — resolución propia
   ├── JuegoContador.css     # V1 — resolución propia
-├── App.jsx                 # Punto de entrada — cambiar import aquí
-└── main.jsx
+├── main.jsx                 # Punto de entrada — cambiar import aquí
 ```
 
 ---
